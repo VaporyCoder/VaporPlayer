@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  musicplayer:
+    build: .
+    container_name: musicplayer
+    ports:
+      - "5174:5174"
+    volumes:
+      - /mnt/your-music:/music:ro
