@@ -2,8 +2,11 @@ version: "3.8"
 services:
   musicplayer:
     build: .
-    container_name: musicplayer
+    container_name: VaporyPlayer
     ports:
       - "5174:5174"
     volumes:
-      - /mnt/your-music:/music:ro
+      - /volume1/Plex/Music:/music:ro
+    environment:
+      - MUSIC_DIR=/music
+    restart: unless-stopped

@@ -1,18 +1,24 @@
-# Build frontend
-FROM node:18 AS build
+# ---- Build frontend ----
+FROM node:18-alpine as build
+
 WORKDIR /app
-COPY package*.json ./
+
+COPY package.json package-lock.json ./
 RUN npm install
+
 COPY . .
 RUN npm run build
 
-# Runtime
-FROM node:18
-WORKDIR /app
-COPY --from=build /app/dist ./dist
-COPY server.js ./
-RUN npm install express cors uuid
+# ---- Run backend ----
+FROM node:18-alpine
 
-ENV MUSIC_DIR=/music
+WORKDIR /app
+
+COPY --from=build /app/dist ./dist
+COPY server.mjs .
+COPY package.json package-lock.json ./
+RUN npm install --production
+
 EXPOSE 5174
-CMD ["node", "server.js"]
+
+CMD ["node", "server.mjs"]

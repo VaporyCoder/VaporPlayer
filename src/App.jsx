@@ -76,7 +76,7 @@ export default function MusicPlayerApp() {
   const [bgColor, setBgColor] = useState("#0a0f29");
 
   useEffect(() => {
-  fetch("http://localhost:5174/api/library")
+  fetch("/api/library")
     .then((res) => res.json())
     .then(setTracks)
     .catch((err) => console.error("Library fetch failed", err));
@@ -296,7 +296,7 @@ export default function MusicPlayerApp() {
       {/* Header */}
       <header className="app-header">
         <h1 className="app-title">
-          <Music2 className="h-6 w-6" /> Music Player
+          <Music2 className="h-6 w-6" /> VaporPlayer
         </h1>
         <div className="header-actions">
           <button onClick={() => inputRef.current?.click()} className="btn">
